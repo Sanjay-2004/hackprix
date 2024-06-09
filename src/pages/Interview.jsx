@@ -138,6 +138,7 @@ const Interview = () => {
         SpeechRecognition.stopListening();
         console.log(transcript)
         input_message.current.push({ role: "user", content: transcript});
+        answers.current.push(transcript);
         var input = { messages : input_message.current };
         console.log(input);
         var response = await fetchQuestion(input);
