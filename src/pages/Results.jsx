@@ -7,19 +7,23 @@ import {
 } from "@/components/ui/card"
 
 import Navbar from "@/components/Navbar";
-
+import { useEffect } from "react";
 import { useLocation } from "react-router-dom"
 import { useUser } from "@clerk/clerk-react";
+import axios from 'axios';
 
 const Results = () => {
     const { user } = useUser();
     const location = useLocation();
     const { questions, answers, grades, history } = location.state;
-    console.log(questions);
-    console.log(grades);
-    console.log(history);
-    console.log(answers);
-
+    useEffect(()=>{
+        async function save() {
+            const {data} = await axios.post("http://localhost:3000/api/interview/save",{userId: user.id, conversation: history});
+            console.log(user.id);
+            console.log(data);
+        }
+        save();
+    })
     return (
         <>
             <Navbar />

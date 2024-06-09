@@ -6,12 +6,13 @@ import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } 
 import Interview from './pages/Interview'
 import Results from "./pages/Results"
 import { Toaster } from "@/components/ui/toaster"
+import Home from "./pages/Home";
 import Archive from "./pages/Archive"
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
-      {/* <Route index path="/" element={<Home />} /> */}
-      <Route index path="/" element={<><SignedIn><Dashboard /></SignedIn><SignedOut><RedirectToSignIn /></SignedOut></>} />
+      <Route index path="/" element={<Home />} />
+      <Route index path="/dashboard" element={<><SignedIn><Dashboard /></SignedIn><SignedOut><RedirectToSignIn /></SignedOut></>} />
       <Route path="/custom" element={<><SignedIn><TopicDetail /></SignedIn><SignedOut><RedirectToSignIn /></SignedOut></>} />
       <Route path="/frontend" element={<><SignedIn><TopicDetail /></SignedIn><SignedOut><RedirectToSignIn /></SignedOut></>} />
       <Route path="/backend" element={<><SignedIn><TopicDetail /></SignedIn><SignedOut><RedirectToSignIn /></SignedOut></>} />

@@ -67,11 +67,6 @@ const Interview = () => {
 
 
     const [question, setQuestion] = useState('');
-    
-    const questions = useRef([]);
-    const answers = useRef([]);
-    const grades = useRef([]);
-
     const questions = useRef([]);
     const answers = useRef([]);
     const grades = useRef([]);
@@ -148,7 +143,7 @@ const Interview = () => {
 
         answers.current.push(transcript);
 
-        var input = { input_message: input_message.current };
+        var input = { messages : input_message.current };
         console.log(input);
         var response = await fetchQuestion(input);
         console.log("Response: "+response);
@@ -163,8 +158,9 @@ const Interview = () => {
         handleReset();
         count+=1;
         grades.current.push(response["grade"]);
-        if(count==3){
+        if(count==2){
             navigate('/result', {state: {grades: grades.current, questions: questions.current, answers: answers.current,history: input_message.current}});
+            return;
         }
         questions.current.push(response["next_question"]);
     }

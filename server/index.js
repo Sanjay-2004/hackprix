@@ -4,14 +4,16 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 dotenv.config();
 
-import userRouter from './routes/userRoute.js'
+import userRouter from './routes/userRoute.js';
+import interviewRouter from './routes/interviewRoute.js';
 
 const app = express();
 app.use(express.json());
 app.use(cors());
 const port = process.env.PORT;
 
-app.use("/api/user", userRouter)
+app.use("/api/user", userRouter);
+app.use("/api/interview",interviewRouter);
 
 app.get("/", async(req, res)=>{
     return res.json({"status":"Working"}).status(200);
