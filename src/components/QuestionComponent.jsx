@@ -1,4 +1,4 @@
-import React from 'react'
+ 
 
 const QuestionComponent = ({ question, response, grade, remark }) => {
     return (

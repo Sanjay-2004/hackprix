@@ -1,4 +1,3 @@
-import React from 'react'
 import {
     Card,
     CardContent,
@@ -7,6 +6,7 @@ import {
     CardTitle,
 } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import PropTypes from 'prop-types';
 
 export default function CardComponent({ title, description, tags }) {
     return (
@@ -19,7 +19,7 @@ export default function CardComponent({ title, description, tags }) {
                 <CardContent>
                     {description}
                 </CardContent>
-                <CardFooter className='h-[100px] flex flex-col  justify-end items-start '>
+                <CardFooter className='h-[75px] flex flex-col  justify-end items-start '>
                     <div className='mb-2'>
                         {tags && tags.map(
                             (info, index) => {
@@ -35,3 +35,10 @@ export default function CardComponent({ title, description, tags }) {
         </>
     )
 }
+
+CardComponent.propTypes = {
+    title: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    tags: PropTypes.arrayOf(PropTypes.string)
+};
+

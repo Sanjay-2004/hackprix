@@ -1,4 +1,3 @@
-import React from 'react'
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 // import 'regenerator-runtime/runtime';
 export default function Dictaphone() {
