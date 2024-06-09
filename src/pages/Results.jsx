@@ -5,34 +5,58 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card"
-
 import Navbar from "@/components/Navbar";
+import { Skeleton } from "@/components/ui/skeleton"
 
 import { useLocation } from "react-router-dom"
 import { useUser } from "@clerk/clerk-react";
-
+import { useEffect, useState } from "react";
+const API_URL = import.meta.env.VITE_API_URL;
 const Results = () => {
     const { user } = useUser();
     const location = useLocation();
-    // const { questions, answers, grades, history } = location.state;
+    const { questions, answers, grades, history } = location.state;
+    history[0].content = "You were an AI interviewer, you've asked the following question to the user and the user has answered as following. Now you should give an overall summary about how the user has performed and on what basis you have graded the user and how he can improve.";
+    const [overview, setOverview] = useState('');
     // console.log(questions);
     // console.log(grades);
+    // console.log(history);
     // console.log(answers);
-    const questions = ["Is it accessible?", "Is it responsive?", "Is it performant?"]
-    const grades = ["b", "c", "A"]
-    const answers = ["No", "Yes", "Yes"]
-    const remarks = ["Needs improvement!", "Good job!", "Good job!"]
-    const finish = []
-    for (let i in questions) {
-        let temp = {}
-        temp.questions = questions[i]
-        temp.grades = grades[i]
-        temp.answers = answers[i]
-        temp.remarks = remarks[i]
-        finish.push(temp)
-    }
-    console.log(finish)
 
+    useEffect(() => {
+        async function fetchOverview(input) {
+            console.log(input);
+            try {
+                const response = await fetch(
+                    API_URL + "/generate_overview",
+                    {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(input),
+                    }
+                );
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                var data = await response.json();
+                data = data["reply"];
+                console.log(data);
+                setOverview(data[0]['generated_text']);
+                console.log(overview);
+
+
+
+            } catch (error) {
+                console.error("Fetch error: ", error);
+            }
+        }
+        const input = { input_message: history };
+        fetchOverview(input);
+    })
 
     return (
         <>
@@ -47,6 +71,27 @@ const Results = () => {
                     </CardHeader>
                     {/* <hr /> */}
                     <CardContent>
+                        <div className="border-2 border-slate text-sm text-muted-foreground p-10 m-5">
+                            {overview == '' ?
+
+                                (
+                                    <>
+                                        <Skeleton className="h-8 w-[100%] m-5" />
+                                        <Skeleton className="h-8 w-[100%] m-5" />
+                                        <Skeleton className="h-8 w-[100%] m-5" />
+                                        <Skeleton className="h-8 w-[100%] m-5" />
+                                    </>
+                                )
+                                :
+                                (
+                                    <>
+                                        {overview}
+                                    </>
+                                )
+
+
+                            }
+                        </div>
                         {
                             questions.map((question, index) => {
                                 return (

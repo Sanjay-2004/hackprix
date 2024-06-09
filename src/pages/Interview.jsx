@@ -67,7 +67,7 @@ const Interview = () => {
 
 
     const [question, setQuestion] = useState('');
-    
+
     const questions = useRef([]);
     const answers = useRef([]);
     const grades = useRef([]);
@@ -141,28 +141,30 @@ const Interview = () => {
     const submitTranscript = async () => {
         SpeechRecognition.stopListening();
         console.log(transcript)
-        input_message.current.push({ role: "user", content: transcript});
+        input_message.current.push({ role: "user", content: transcript });
 
         answers.current.push(transcript);
 
         var input = { input_message: input_message.current };
         console.log(input);
         var response = await fetchQuestion(input);
-        console.log("Response: "+response);
+        console.log("Response: " + response);
         response = JSON.parse(extractJSONFromText(response["reply"]));
+
+
+
+        handleReset();
+        count += 1;
+        grades.current.push(response["grade"]);
+        if (count == 1) {
+            navigate('/result', { state: { grades: grades.current, questions: questions.current, answers: answers.current, history: input_message.current } });
+            return;
+        }
         setQuestion(response["next_question"]);
         input_message.current.push({
             role: "assistant",
             content: response["next_question"],
         });
-        
-
-        handleReset();
-        count+=1;
-        grades.current.push(response["grade"]);
-        if(count==3){
-            navigate('/result', {state: {grades: grades.current, questions: questions.current, answers: answers.current,history: input_message.current}});
-        }
         questions.current.push(response["next_question"]);
         console.log(response["grade"]);
     }
