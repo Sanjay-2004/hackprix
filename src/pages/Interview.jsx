@@ -23,8 +23,8 @@ const Interview = () => {
     const location = useLocation();
     const { title, jobDescription } = location.state || {};
     const { transcript, browserSupportsSpeechRecognition, resetTranscript } = useSpeechRecognition();
-    const prompt = `You are an AI Interviewer, ask the user a question according to the following job description: ${jobDescription}, Restrict your replies to a single question, Grade each answer of the user on a scale of 1-10 on how accurate it is, if the user isn't able to answer properly then try asking other questions and grade it 0. All output must be in valid JSON. Output must be in valid JSON like the following example {"grade": 7, "next_question": "What frameworks have you worked on?"},{"grade": 7, "next_question": "What projects have you worked on?"}. Output must include only JSON with keys grade and next-question`;
-
+    const prompt = `You are an AI Interviewer, ask the user a question according to the following job description: ${jobDescription}, Restrict your replies to a single question, Grade each answer of the user on a scale of 1-10 on how accurate it is, if the user isn't able to answer properly then try asking other questions and grade it 0. All output must be in valid JSON. Output must be in valid JSON like the following example {"grade": 7, "next_question": "What projects have you worked on?"}. Output must include only JSON with keys grade and next-question`;
+    const navigate = useNavigate();
 
     function extractJSONFromText(text) {
         var pattern = /{.*?}/;
@@ -66,6 +66,9 @@ const Interview = () => {
     const [question, setQuestion] = useState('');
     
 
+    const questions = useRef([]);
+    const answers = useRef([]);
+    const grades = useRef([]);
     const input_message = useRef([]);
 
     useEffect(() => {
@@ -147,9 +150,11 @@ const Interview = () => {
         });
         handleReset();
         count+=1;
-        if(count==15){
-            
+        grades.current.push(response["grade"]);
+        if(count==3){
+            navigate('/result', {state: {grades: grades.current, questions: questions.current, answers: answers.current,history: input_message.current}});
         }
+        questions.current.push(response["next_question"]);
     }
     if (!browserSupportsSpeechRecognition) {
         console.log("hello")
