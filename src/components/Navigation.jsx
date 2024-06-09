@@ -15,6 +15,10 @@ const routes = [
     {
         href: '/archive',
         label: 'Archive'
+    },
+    {
+        href: '/performance',
+        label: 'Performance'
     }
 ]
 

@@ -1,4 +1,3 @@
- ;
 import {
     Card,
     CardContent,
@@ -15,7 +14,7 @@ const BarChartComponent = () => {
         { domain: "fullstack", performance: 7 },
         { domain: "devops", performance: 4 },
         { domain: "testing", performance: 5 },
-        { domain: "management", performance: 6 },
+        { domain: "mgmt", performance: 6 },
         { domain: "design", performance: 7 },
         { domain: "product", performance: 8 },
         { domain: "marketing", performance: 10 },
@@ -35,7 +34,10 @@ const BarChartComponent = () => {
             <CardContent>
                 <ResponsiveContainer width="100%" height={400}>
                     <BarChart data={checkArr} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
-                        <XAxis dataKey="domain" />
+                        <XAxis
+                            dataKey="domain"
+                            tick={{ fontSize: 10 }}  // Adjust the font size here
+                        />
                         <YAxis domain={[0, 10]} ticks={[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]} />
                         {/* <Tooltip /> */}
                         <Bar dataKey="performance" fill="#ff8000" />

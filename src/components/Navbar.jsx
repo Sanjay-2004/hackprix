@@ -1,14 +1,15 @@
 import { UserButton } from "@clerk/clerk-react";
 import logo from '../assets/logoipsum.svg';
 import Navigation from "@/components/Navigation";
+import { NavLink } from "react-router-dom";
 
 
 const HeaderLogo = () => {
     return (
-        <div className="items-center hidden lg:flex">
+        <NavLink to="/" className="items-center hidden lg:flex">
             <img src={logo} alt="Logo" className="size-8" />
             <span className="text-white text-2xl ml-2.5 font-bold">PrashnManch</span>
-        </div>
+        </NavLink>
     )
 }
 
