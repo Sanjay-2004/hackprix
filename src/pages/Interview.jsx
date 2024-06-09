@@ -40,7 +40,7 @@ const Interview = () => {
         console.log(input);
         try {
             const response = await fetch(
-                API_URL + "/generate_response",
+                API_URL + "/ask",
                 {
                     method: "POST",
                     headers: {
@@ -73,7 +73,7 @@ const Interview = () => {
             console.log(input);
             try {
                 const response = await fetch(
-                    API_URL + "/generate_response",
+                    API_URL + "/ask",
                     {
                         method: "POST",
                         headers: {
@@ -89,7 +89,7 @@ const Interview = () => {
 
                 var data = await response.json();
                 console.log(data);
-                data = JSON.parse(extractJSONFromText(data["reply"]));
+                data = JSON.parse(data);
                 setQuestion(data["next_question"]);
                 input_message.current.push({
                     role: "assistant",
@@ -102,7 +102,7 @@ const Interview = () => {
             }
         }
         input_message.current.push({ role: "system", content: prompt });
-        var input = { input_message: input_message.current };
+        var input = { messages: input_message.current };
         fetchQuestionFirst(input);
     }, [])
 
@@ -135,11 +135,11 @@ const Interview = () => {
         SpeechRecognition.stopListening();
         console.log(transcript)
         input_message.current.push({ role: "user", content: transcript});
-        var input = { input_message: input_message.current };
+        var input = { messages : input_message.current };
         console.log(input);
         var response = await fetchQuestion(input);
         console.log("Response: "+response);
-        response = JSON.parse(extractJSONFromText(response["reply"]));
+        response = JSON.parse(response);
         setQuestion(response["next_question"]);
         input_message.current.push({
             role: "assistant",

@@ -6,10 +6,7 @@ const router = express.Router();
 
 router.route("/").post(async (req, res) => {
     try {
-        console.log("Entered Here");
-        console.log(req.body);
         const {userEmail, userName, userId} = req.body;
-        console.log(userEmail,userName,userId);
         const user = await User.findOne({userID: userId});
         if(!user){
             await new User({userName,userEmail,userId}).save();
