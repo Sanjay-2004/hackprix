@@ -4,11 +4,18 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 dotenv.config();
 
+import userRouter from './routes/userRoute.js'
+
 const app = express();
 app.use(express.json());
 app.use(cors());
 const port = process.env.PORT;
 
+app.use("/api/user", userRouter)
+
+app.get("/", async(req, res)=>{
+    return res.json({"status":"Working"}).status(200);
+})
 mongoose.connect(process.env.MONGOOSE_URL)
 .then(()=>console.log(`Connected to Database`))
 .catch(e=>console.log(e));
