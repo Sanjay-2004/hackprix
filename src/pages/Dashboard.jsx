@@ -5,8 +5,17 @@ import { Button } from '@/components/ui/button';
 import { Link, Outlet } from 'react-router-dom';
 import CardComponent2 from '@/components/CardComponent2';
 import Navbar from '@/components/Navbar';
+import { useUser } from '@clerk/clerk-react';
 
 const Dashboard = () => {
+
+    const { isSignedIn, user, isLoaded } = useUser();
+
+    if (isSignedIn) {
+        console.log(user.emailAddresses[0].emailAddress)
+        console.log(user.id);
+        console.log(user.fullName);
+    }
     const [topicsShow, setTopicsShow] = useState(false);
 
     const dd = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Exercitationem, dignissimos ? Molestias error cum incidunt quam eaque voluptate corrupti maiores vitae totam quae ? Officia, tenetur vel ? Nobis amet at, dolores dolore cupiditate non minima expedita";
