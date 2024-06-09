@@ -9,7 +9,7 @@ import { Menu } from "lucide-react";
 
 const routes = [
     {
-        href: '/prepare',
+        href: '/',
         label: 'Prepare'
     },
     {
