@@ -14,25 +14,11 @@ import { useUser } from "@clerk/clerk-react";
 const Results = () => {
     const { user } = useUser();
     const location = useLocation();
-    // const { questions, answers, grades, history } = location.state;
-    // console.log(questions);
-    // console.log(grades);
-    // console.log(answers);
-    const questions = ["Is it accessible?", "Is it responsive?", "Is it performant?"]
-    const grades = ["b", "c", "A"]
-    const answers = ["No", "Yes", "Yes"]
-    const remarks = ["Needs improvement!", "Good job!", "Good job!"]
-    const finish = []
-    for (let i in questions) {
-        let temp = {}
-        temp.questions = questions[i]
-        temp.grades = grades[i]
-        temp.answers = answers[i]
-        temp.remarks = remarks[i]
-        finish.push(temp)
-    }
-    console.log(finish)
-
+    const { questions, answers, grades, history } = location.state;
+    console.log(questions);
+    console.log(grades);
+    console.log(history);
+    console.log(answers);
 
     return (
         <>

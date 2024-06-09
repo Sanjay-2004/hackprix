@@ -41,7 +41,7 @@ const Interview = () => {
         console.log(input);
         try {
             const response = await fetch(
-                API_URL + "/generate_response",
+                API_URL + "/ask",
                 {
                     method: "POST",
                     headers: {
@@ -72,6 +72,9 @@ const Interview = () => {
     const answers = useRef([]);
     const grades = useRef([]);
 
+    const questions = useRef([]);
+    const answers = useRef([]);
+    const grades = useRef([]);
     const input_message = useRef([]);
 
     useEffect(() => {
@@ -79,7 +82,7 @@ const Interview = () => {
             console.log(input);
             try {
                 const response = await fetch(
-                    API_URL + "/generate_response",
+                    API_URL + "/ask",
                     {
                         method: "POST",
                         headers: {
@@ -95,7 +98,7 @@ const Interview = () => {
 
                 var data = await response.json();
                 console.log(data);
-                data = JSON.parse(extractJSONFromText(data["reply"]));
+                data = JSON.parse(data);
                 setQuestion(data["next_question"]);
                 questions.current.push(data["next_question"]);
                 input_message.current.push({
@@ -109,7 +112,7 @@ const Interview = () => {
             }
         }
         input_message.current.push({ role: "system", content: prompt });
-        var input = { input_message: input_message.current };
+        var input = { messages: input_message.current };
         fetchQuestionFirst(input);
     }, [])
 
@@ -149,7 +152,7 @@ const Interview = () => {
         console.log(input);
         var response = await fetchQuestion(input);
         console.log("Response: "+response);
-        response = JSON.parse(extractJSONFromText(response["reply"]));
+        response = JSON.parse(response);
         setQuestion(response["next_question"]);
         input_message.current.push({
             role: "assistant",
@@ -164,7 +167,6 @@ const Interview = () => {
             navigate('/result', {state: {grades: grades.current, questions: questions.current, answers: answers.current,history: input_message.current}});
         }
         questions.current.push(response["next_question"]);
-        console.log(response["grade"]);
     }
     if (!browserSupportsSpeechRecognition) {
         console.log("hello")
