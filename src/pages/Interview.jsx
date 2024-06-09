@@ -10,8 +10,12 @@ import Navbar from '@/components/Navbar';
 import { Button } from '@/components/ui/button';
 
 import { useEffect, useRef, useState } from 'react'
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
+
+
+var count = 0;
+
 
 
 const API_URL = import.meta.env.VITE_API_URL;
@@ -142,7 +146,10 @@ const Interview = () => {
             content: response["next_question"],
         });
         handleReset();
-
+        count+=1;
+        if(count==15){
+            
+        }
     }
     if (!browserSupportsSpeechRecognition) {
         console.log("hello")

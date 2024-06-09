@@ -3,7 +3,8 @@ import Dashboard from './pages/Dashboard'
 import TopicDetail from './components/TopicComponent'
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from "react-router-dom"
 import Interview from './pages/Interview'
-
+import Results from "./pages/Results"
+import { Toaster } from "@/components/ui/toaster"
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
@@ -19,6 +20,7 @@ const router = createBrowserRouter(
       <Route path="/ui-ux" element={<><SignedIn><TopicDetail /></SignedIn><SignedOut><RedirectToSignIn /></SignedOut></>} />
       <Route path="/marksppe" element={<><SignedIn><TopicDetail /></SignedIn><SignedOut><RedirectToSignIn /></SignedOut></>} />
       <Route path="/interview" element={<><SignedIn><Interview /></SignedIn><SignedOut><RedirectToSignIn /></SignedOut></>} />
+      <Route path="/result" element={<><SignedIn><Results /></SignedIn><SignedOut><RedirectToSignIn /></SignedOut></>} />
     </>
   )
 )
@@ -26,6 +28,7 @@ const router = createBrowserRouter(
 const App = () => {
   return (
     <>
+      <Toaster />
       <RouterProvider router={router} />
     </>
   )
