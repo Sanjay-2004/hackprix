@@ -5,23 +5,22 @@ import {
     CardTitle,
 } from "@/components/ui/card";
 import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, ReferenceLine } from 'recharts';
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 const BarChartComponent = () => {
 
-    const checkArr = [
-        { domain: "frontend", performance: 7 },
-        { domain: "backend", performance: 9 },
-        { domain: "fullstack", performance: 7 },
-        { domain: "devops", performance: 4 },
-        { domain: "testing", performance: 5 },
-        { domain: "mgmt", performance: 6 },
-        { domain: "design", performance: 7 },
-        { domain: "product", performance: 8 },
-        { domain: "marketing", performance: 10 },
-        { domain: "sales", performance: 5 },
-        { domain: "hr", performance: 5 },
-        { domain: "finance", performance: 9 },
-    ];
+    const [checkArr, setcheckArr] = useState([])
+
+    const getData = async () => {
+        const arr = await axios.get(`${import.meta.env.VITE_SERVER_URL}/api/performance/`);
+        setcheckArr(arr.data.performance)
+        console.log(checkArr)
+    }
+
+    useEffect(() => {
+        getData()
+    }, [])
 
     return (
         <Card>

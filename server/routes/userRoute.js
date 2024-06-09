@@ -1,6 +1,5 @@
-import mongoose from "mongoose";
-import express, { response } from 'express';
-import User from '../models/user.js'
+import express from "express";
+import User from "../models/user.js";
 
 const router = express.Router();
 
@@ -18,8 +17,8 @@ router.route("/").post(async (req, res) => {
     }
 })
 
-router.route("/").get(async (req,res)=>{
-    return res.json({"status":"Workisdfsfdsfsdng"}).status(200);
-})
+router.route("/").get(async (req, res) => {
+  return res.json({ status: "Workisdfsfdsfsdng" }).status(200);
+});
 
 export default router;
