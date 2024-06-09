@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import BarChartComponent from '@/components/BarChartComponent';
 import CardComponent from '@/components/CardComponent';
 import { Button } from '@/components/ui/button';
@@ -6,15 +6,30 @@ import { Link, Outlet } from 'react-router-dom';
 import CardComponent2 from '@/components/CardComponent2';
 import Navbar from '@/components/Navbar';
 import { useUser } from '@clerk/clerk-react';
+import axios from 'axios';
 
 const Dashboard = () => {
 
     const { isSignedIn, user, isLoaded } = useUser();
 
     if (isSignedIn) {
-        console.log(user.emailAddresses[0].emailAddress)
-        console.log(user.id);
-        console.log(user.fullName);
+        // console.log(user.emailAddresses[0].emailAddress)
+        // console.log(user.id);
+        // console.log(user.fullName);
+
+        console.log(`${import.meta.env.VITE_SERVER_URL}/api/user/`)
+        const data = {
+            userId: user.id,
+            userEmail: user.emailAddresses[0].emailAddress,
+            userName: user.fullName
+        }
+        console.log(data)
+        try {
+            const response = axios.post(`${import.meta.env.VITE_SERVER_URL}/api/user`, data)
+            console.log(response)
+        } catch (error) {
+            console.log("Error:", error)
+        }
     }
     const [topicsShow, setTopicsShow] = useState(false);
 

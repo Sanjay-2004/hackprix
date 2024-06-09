@@ -5,11 +5,12 @@ import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } 
 import Interview from './pages/Interview'
 import Results from "./pages/Results"
 import { Toaster } from "@/components/ui/toaster"
+import Archive from "./pages/Archive"
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
       {/* <Route index path="/" element={<Home />} /> */}
-      <Route index path="/" element={<><SignedIn><Dashboard /></SignedIn><SignedOut><RedirectToSignIn /></SignedOut></>} />
+      {/* <Route index path="/" element={<><SignedIn><Dashboard /></SignedIn><SignedOut><RedirectToSignIn /></SignedOut></>} />
       <Route path="/custom" element={<><SignedIn><TopicDetail /></SignedIn><SignedOut><RedirectToSignIn /></SignedOut></>} />
       <Route path="/frontend" element={<><SignedIn><TopicDetail /></SignedIn><SignedOut><RedirectToSignIn /></SignedOut></>} />
       <Route path="/backend" element={<><SignedIn><TopicDetail /></SignedIn><SignedOut><RedirectToSignIn /></SignedOut></>} />
@@ -20,7 +21,9 @@ const router = createBrowserRouter(
       <Route path="/ui-ux" element={<><SignedIn><TopicDetail /></SignedIn><SignedOut><RedirectToSignIn /></SignedOut></>} />
       <Route path="/marksppe" element={<><SignedIn><TopicDetail /></SignedIn><SignedOut><RedirectToSignIn /></SignedOut></>} />
       <Route path="/interview" element={<><SignedIn><Interview /></SignedIn><SignedOut><RedirectToSignIn /></SignedOut></>} />
-      <Route path="/result" element={<><SignedIn><Results /></SignedIn><SignedOut><RedirectToSignIn /></SignedOut></>} />
+      <Route path="/result" element={<><SignedIn><Results /></SignedIn><SignedOut><RedirectToSignIn /></SignedOut></>} /> */}
+
+      <Route index path="/" element={<><Archive /></>} />
     </>
   )
 )
