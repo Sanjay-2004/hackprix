@@ -158,7 +158,7 @@ const Interview = () => {
         handleReset();
         count+=1;
         grades.current.push(response["grade"]);
-        if(count==2){
+        if(count==3){
             navigate('/result', {state: {grades: grades.current, questions: questions.current, answers: answers.current,history: input_message.current}});
             return;
         }

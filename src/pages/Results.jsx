@@ -18,6 +18,9 @@ const Results = () => {
     const { questions, answers, grades, history } = location.state;
     useEffect(()=>{
         async function save() {
+            grades.map((ind,grade)=>{
+                history.grade = grades[ind];
+            });
             const {data} = await axios.post("http://localhost:3000/api/interview/save",{userId: user.id, conversation: history});
             console.log(user.id);
             console.log(data);
